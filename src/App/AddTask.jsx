@@ -29,6 +29,7 @@ class AddTask extends Component {
     description: '',
     id: null,
     modalIsOpen: false,
+    reminderTime: {},
   };
 
   componentDidMount() {
@@ -53,36 +54,35 @@ class AddTask extends Component {
     this.setState(prevState => ({modalIsOpen: !prevState.modalIsOpen}))
   };
 
+  loop = (reminderTime) => {
+    var now = new Date();
 
-  surprise = (cb) => {
-    console.log('in surprise');
-    var that = this;
-    (function loop() {
-      console.log('in loop');
-      var now = new Date();
-      console.log('year', now.getFullYear(), cb.getFullYear());
-      console.log('month', now.getMonth(), cb.getMonth());
-      console.log('date', now.getDate(), cb.getDate());
-      console.log('hours', now.getHours(), cb.getHours());
-      console.log('minutes', now.getMinutes(), cb.getMinutes());
-      if (now.getFullYear() === cb.getFullYear() && now.getMonth() === cb.getMonth() && now.getDate() === cb.getDate() && now.getHours() === cb.getHours() && now.getMinutes() === cb.getMinutes()) {
-        console.log('inside if');
-          that.props.alert.show('abc');
-      }
-      now = new Date();
-      var delay = 60000 - (now % 60000);
-      setTimeout(loop, delay);
-    })();
-  }
+    if (now.getFullYear() === reminderTime.getFullYear() && now.getMonth() === reminderTime.getMonth() && now.getDate() === reminderTime.getDate() && now.getHours() === reminderTime.getHours() && now.getMinutes() === reminderTime.getMinutes()) {
+      this.props.alert.show('abc');
+    }
+    now = new Date();
+    var delay = 60000 - (now % 60000);
+
+    const timeoutId = setTimeout(() => this.loop(reminderTime), delay);
+    if(now > reminderTime) {
+      clearTimeout(timeoutId);
+    }
+    };
 
   setReminder = (value) => {
     const reminderTime = new Date(value.date);
     console.log('cb time', value);
     const newReminderTime = new Date(reminderTime.getFullYear(), reminderTime.getMonth(), reminderTime.getDate(), value.time.hour, value.time.min);
-
-
-    this.surprise(newReminderTime);
+  this.setState({
+    reminderTime: newReminderTime
+  });
   };
+
+  saveTask = () => {
+    this.props.dispatch(TodoActions.createTask(this.state));
+    this.loop(this.state.reminderTime);
+  };
+
   render() {
     return (
       <div>
@@ -105,7 +105,7 @@ class AddTask extends Component {
           <Link to='/'><Button>Cancel</Button></Link>
           <Link to='/'>
             <Button
-              onClick={() => this.props.dispatch(TodoActions.createTask(this.state))}
+              onClick={() => this.saveTask()}
             >
               Save
             </Button>
