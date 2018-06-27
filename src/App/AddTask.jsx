@@ -8,6 +8,7 @@ import '../styles/AddTask.scss';
 
 import TodoActions from '../actions/TodoActions';
 import ReminderModal from "./ReminderModal";
+import { withAlert } from "react-alert";
 
 const propTypes = {
   currentTask: PropTypes.object,
@@ -52,11 +53,36 @@ class AddTask extends Component {
     this.setState(prevState => ({modalIsOpen: !prevState.modalIsOpen}))
   };
 
-  setReminder = (value) => {
-    const date = value.date;
-    const time = value.time;
-    console.log('fgfdfgf', date, time);
+
+  surprise = (cb) => {
+    console.log('in surprise');
+    var that = this;
+    (function loop() {
+      console.log('in loop');
+      var now = new Date();
+      console.log('year', now.getFullYear(), cb.getFullYear());
+      console.log('month', now.getMonth(), cb.getMonth());
+      console.log('date', now.getDate(), cb.getDate());
+      console.log('hours', now.getHours(), cb.getHours());
+      console.log('minutes', now.getMinutes(), cb.getMinutes());
+      if (now.getFullYear() === cb.getFullYear() && now.getMonth() === cb.getMonth() && now.getDate() === cb.getDate() && now.getHours() === cb.getHours() && now.getMinutes() === cb.getMinutes()) {
+        console.log('inside if');
+          that.props.alert.show('abc');
+      }
+      now = new Date();
+      var delay = 60000 - (now % 60000);
+      setTimeout(loop, delay);
+    })();
   }
+
+  setReminder = (value) => {
+    const reminderTime = new Date(value.date);
+    console.log('cb time', value);
+    const newReminderTime = new Date(reminderTime.getFullYear(), reminderTime.getMonth(), reminderTime.getDate(), value.time.hour, value.time.min);
+
+
+    this.surprise(newReminderTime);
+  };
   render() {
     return (
       <div>
@@ -93,4 +119,4 @@ class AddTask extends Component {
 AddTask.propTypes = propTypes;
 AddTask.defaultProps = defaultProps;
 
-export default AddTask;
+export default withAlert(AddTask);

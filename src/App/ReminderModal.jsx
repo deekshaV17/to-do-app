@@ -21,8 +21,8 @@ class ReminderModal extends Component {
     time: {
       hour: '',
       min: '',
-      format: 'AM',
-    }
+    },
+    format: 'AM',
   };
   handleChange = (date) => {
     this.setState({ date: date });
@@ -47,16 +47,27 @@ class ReminderModal extends Component {
   };
 
   handleFormatChange = (e, {value}) => {
-    this.setState(prevState => ({
-      time: {
-        ...prevState.time,
-        format: value,
-      }
-    }));
+    this.setState({ format: value });
   };
 
   saveReminder = () => {
-    this.props.setReminder(this.state);
+    if(this.state.format === 'PM' && this.state.time.hour === 12) {
+      this.setState(prevState => ({
+        time: {
+          ...prevState.time,
+          hour: 0,
+        }
+      }), () => () => this.props.setReminder(this.state))
+    }
+    else if(this.state.format === 'PM') {
+      this.setState(prevState => ({
+        time: {
+          ...prevState.time,
+          hour: prevState.time.hour + 12,
+        }
+      }), () => this.props.setReminder(this.state))
+    }
+    else this.props.setReminder(this.state);
     this.props.closeModal();
   };
 
