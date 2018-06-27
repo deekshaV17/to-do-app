@@ -1,0 +1,15 @@
+
+.taskContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.taskDescription {
+  display: flex;
+  align-items: center;
+}
+
+.markComplete {
+  text-decoration: line-through;
+}
