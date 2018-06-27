@@ -52,6 +52,11 @@ class AddTask extends Component {
     this.setState(prevState => ({modalIsOpen: !prevState.modalIsOpen}))
   };
 
+  setReminder = (value) => {
+    const date = value.date;
+    const time = value.time;
+    console.log('fgfdfgf', date, time);
+  }
   render() {
     return (
       <div>
@@ -69,7 +74,7 @@ class AddTask extends Component {
           />
         </div>
         <Button onClick={() => this.toggleModal()}>Add reminder</Button>
-        <ReminderModal isOpen={this.state.modalIsOpen}/>
+        <ReminderModal isOpen={this.state.modalIsOpen} closeModal={this.toggleModal} setReminder={this.setReminder}/>
         <div>
           <Link to='/'><Button>Cancel</Button></Link>
           <Link to='/'>
