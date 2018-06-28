@@ -96,7 +96,7 @@ class AddTask extends Component {
     return (
       <div className='addTaskContainer'>
         <Heading location={this.props.location}/>
-        <div>
+        <div className='taskFieldsContainer'>
           <TaskFields
             title={this.state.title}
             description={this.state.description}

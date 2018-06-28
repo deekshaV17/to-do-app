@@ -35,7 +35,7 @@ class TaskFields extends Component {
         {reminderTime  &&
           <div className='editReminderContainer'>
             <div className='reminderInfo'>
-            <div> Reminder added at : </div>
+            <div> Reminder due: </div>
             <div>{getDateFormat(reminderTime)}</div>
             <div>Time: {getTimeFormat(reminderTime)}</div>
             </div>

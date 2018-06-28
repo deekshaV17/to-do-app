@@ -5,10 +5,10 @@
 }
 
 .inputTaskFields {
+  flex: 4;
   display: flex;
   flex-direction: column;
-  padding: 20px;
-  width: 100%;
+  padding: 20px 20px 20px 0;
 }
 
 .ui.input.inputField {
@@ -42,15 +42,15 @@
   }
 }
 
-
 .ui.button.addReminderButton {
-  margin: 0 20px 0 0;
+  margin: 0 0 20px 0;
+  flex: 1;
   background-color: #0f3c5d;
   color: #fff;
 }
 
 .editReminderContainer {
-  min-width: 150px;
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,4 +58,14 @@
 
 .reminderInfo {
   padding: 10px;
+}
+
+@media only screen and(max-width: 500px) {
+
+  .taskInputContainer {
+	flex-direction: column;
+  }
+  .inputTaskFields {
+	padding: 20px 0;
+  }
 }

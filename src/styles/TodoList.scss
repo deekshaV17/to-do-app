@@ -1,17 +1,23 @@
 .todoListContainer {
-  margin: 100px auto 200px;
-  width: 600px;
+  width: 800px;
+  padding: 15px;
   background: #fff;
   box-shadow: 0 0 15px 5px #666;
   border-radius: 5px;
+  display: flex;
+  flex-direction: column;
 }
 
 .todoListItems {
-  height: 85%;
+  min-height: 500px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  color: #555;
   overflow: auto;
 }
 .taskContainer {
-  padding: 20px 20px 0;
+  padding: 20px 0 0 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -20,6 +26,7 @@
 .taskDescriptionContainer {
   display: flex;
   align-items: flex-start;
+  flex: 5;
 }
 
 .taskDescription {
@@ -31,5 +38,7 @@
 }
 
 .iconsContainer {
+  flex: 1;
   display: flex;
+  justify-content: flex-end;
 }

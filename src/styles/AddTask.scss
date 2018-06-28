@@ -1,15 +1,20 @@
 .addTaskContainer {
-  margin: 100px auto 200px;
-  width: 600px;
+  width: 800px;
+  padding: 15px;
   background: #fff;
   box-shadow: 0 0 15px 5px #666;
   border-radius: 5px;
+  display: flex;
+  flex-direction: column;
 }
 
 .addTaskButtons {
-  padding: 20px;
   display: flex;
   justify-content: space-between;
+}
+
+.taskFieldsContainer {
+  flex: 5;
 }
 
 .ui.button.saveTaskButton {
