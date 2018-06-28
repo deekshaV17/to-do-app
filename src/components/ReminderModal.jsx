@@ -16,7 +16,6 @@ class ReminderModal extends Component {
     format: 'AM',
   };
   handleDateChange = (date) => {
-    console.log('date', date);
     this.setState({ date: date });
   };
 

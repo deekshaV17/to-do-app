@@ -32,7 +32,7 @@ class TaskFields extends Component {
             onChange={e => this.props.handleDescriptionChange(e.target.value)}
           />
         </div>
-        {JSON.stringify(reminderTime) !== '{}' &&
+        {reminderTime  &&
           <div className='editReminderContainer'>
             <div className='reminderInfo'>
             <div> Reminder added at : </div>
@@ -50,7 +50,7 @@ class TaskFields extends Component {
           </div>
         }
 
-        {JSON.stringify(reminderTime) === '{}' &&
+        {!reminderTime &&
           <Button onClick={() => this.toggleModal()} className='addReminderButton'>Add reminder</Button>
         }
         <ReminderModal

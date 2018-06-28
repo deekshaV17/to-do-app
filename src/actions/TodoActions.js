@@ -1,19 +1,15 @@
 import TodoActionsTypes from '../actions/TodoActionsTypes';
-import { getRandomId } from "../utils/scripts";
 
 const TodoActions = {
 
   addTask: payload => ({ type: TodoActionsTypes.ADD, payload}),
 
+  updateTask: payload => ({ type: TodoActionsTypes.UPDATE, payload: payload}),
+
   createTask: payload => (dispatch) => {
-    if(payload.id) {
-      dispatch(TodoActions.removeTask(payload.id));
-    }
     const task = {
-      id: getRandomId(),
+      ...payload,
       isComplete: false,
-      title: payload.title,
-      description: payload.description,
     };
     dispatch(TodoActions.addTask(task));
   },

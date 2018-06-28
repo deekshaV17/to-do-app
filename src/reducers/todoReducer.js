@@ -12,6 +12,15 @@ const TodoReducer = (state = initialState, action) => {
         ...state,
         tasks: [...state.tasks, action.payload],
       };
+    case 'UPDATE': {
+      const taskIndex = getTaskIndex(state.tasks, action.payload.id);
+      const newList = [...state.tasks];
+      newList[taskIndex] = {...action.payload};
+      return {
+        ...state,
+        tasks: newList,
+      };
+    }
     case 'TOGGLE': {
       const taskIndex = getTaskIndex(state.tasks, action.payload);
       const newList = [...state.tasks];

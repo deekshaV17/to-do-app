@@ -8,6 +8,7 @@ import Heading from './Heading';
 import '../styles/AddTask.scss';
 
 import { validateTask } from "../validations/Validations";
+import { getRandomId } from "../utils/scripts";
 
 import TodoActions from '../actions/TodoActions';
 import TaskFields from './TaskFields';
@@ -32,17 +33,16 @@ class AddTask extends Component {
   state = {
     title: '',
     description: '',
-    id: null,
-    reminderTime: {},
+    id: getRandomId(),
+    reminderTime: null,
+    update: false,
   };
 
   componentDidMount() {
-    const taskData = this.props.currentTask;
-    if(JSON.stringify(taskData) !== '{}') {
+    if(this.props.location.state && this.props.location.state.task) {
       this.setState({
-        title: taskData.title,
-      description: taskData.description,
-        id: taskData.id,
+        ...this.props.location.state.task,
+        update: true,
       });
     }
   }
@@ -53,8 +53,6 @@ class AddTask extends Component {
   handleDescriptionChange = (description) => {
     this.setState({ description });
   };
-
-
 
   loop = (reminderTime) => {
     let now = new Date();
@@ -79,18 +77,22 @@ class AddTask extends Component {
   };
 
   removeReminder = () => {
-    this.setState({ reminderTime: {} });
+    this.setState({ reminderTime: null });
   };
 
   saveTask = () => {
-    this.props.dispatch(TodoActions.createTask(this.state));
-    if(JSON.stringify(this.state.reminderTime) !== '{}')
+    if(this.state.update) {
+      this.props.dispatch(TodoActions.updateTask(this.state));
+    }
+    else {
+      this.props.dispatch(TodoActions.createTask(this.state));
+    }
+    if(this.state.reminderTime)
       this.loop(this.state.reminderTime);
     this.props.history.push("/");
   };
 
   render() {
-    console.log('propss', this.props);
     return (
       <div className='addTaskContainer'>
         <Heading location={this.props.location}/>

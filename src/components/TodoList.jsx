@@ -39,7 +39,7 @@ class TodoList extends Component {
 
   getTaskList = () => this.props.todoList.map(task => {
     return (
-      <div className='taskContainer'>
+      <div className='taskContainer' key={task.id}>
         <div className='taskDescriptionContainer'>
           <Checkbox
             defaultChecked={task.isComplete}
@@ -51,13 +51,16 @@ class TodoList extends Component {
           </div>
         </div>
         <div className='iconsContainer'>
+          {task.reminderTime &&
+          <Icon name={'bell outline'} size={'large'}/>
+          }
           <Link
-            to="/add-task"
+            to={{ pathname: '/add-task', state: { task: task } }}
             onClick={() => this.props.editTask(task)}
           >
-            <Icon name={'pencil alternate'} size={'big'} />
+            <Icon name={'pencil alternate'} size={'large'} />
           </Link>
-          <Icon name={'trash'} size={'big'} onClick={() => this.toggleModal()}/>
+          <Icon name={'trash'} size={'large'} onClick={() => this.toggleModal()}/>
           <RemoveTaskModal
             isOpen={this.state.openModal}
             toggleModal={this.toggleModal}

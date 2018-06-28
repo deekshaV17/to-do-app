@@ -28,7 +28,7 @@ const Routes = () => (
       />
       <Route
         exact
-        path="/add-task"
+        path="/add-task/"
         component={addTask}
       />
     </Switch>
