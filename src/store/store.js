@@ -6,4 +6,4 @@ import TodoReducer from '../reducers/todoReducer';
 
 const loggerMiddleware = createLogger({ predicate: () => ({ logger: console, diff: true }) });
 
-export default createStore(combineReducers({TodoReducer}), {}, applyMiddleware(thunk));
+export default createStore(combineReducers({ TodoReducer }), {}, applyMiddleware(thunk));

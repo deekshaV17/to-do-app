@@ -10,15 +10,18 @@ import EmptyList from './EmptyList';
 import TodoActions from '../actions/TodoActions';
 
 import '../styles/TodoList.scss';
-import CustomModal from "./CustomModal";
+import RemoveTaskModal from "./RemoveTaskModal";
 
 const propTypes = {
   todoList: PropTypes.array,
+  editTask: PropTypes.func,
 };
 
 const defaultProps = {
   todoList: [],
+  editTask: () => {},
 };
+
 @connect(store => ({todoList: store.TodoReducer.tasks}))
 class TodoList extends Component {
   state = {
@@ -55,7 +58,7 @@ class TodoList extends Component {
             <Icon name={'pencil alternate'} />
           </Link>
           <Icon name={'trash'} onClick={() => this.toggleModal()}/>
-          <CustomModal
+          <RemoveTaskModal
             isOpen={this.state.openModal}
             toggleModal={this.toggleModal}
             taskId={task.id}

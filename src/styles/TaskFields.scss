@@ -1,0 +1,50 @@
+.taskInputContainer {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.inputTaskFields {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 100%;
+}
+
+.ui.input.inputField {
+  margin: 10px 0;
+
+  input {
+	border-width: 0 0 3px 0;
+	border-color: #0f3c5d;
+	border-radius: 2px;
+	font-weight: bolder;
+	font-size: 18px;
+  }
+}
+
+.textareaField {
+  margin: 10px 0;
+  padding: 10px;
+  outline: none;
+  resize: none;
+  height: 200px;
+  border-color: #d9d9d9;
+  border-radius: 5px;
+
+  &:hover {
+	border-width: 0;
+	box-shadow: 0 1px 10px 0 #888;
+  }
+  &:focus {
+	border-width: 0;
+	box-shadow: 0 1px 10px 0 #888;
+  }
+}
+
+
+.ui.button.addReminderButton {
+  margin: 0 20px 0 0;
+  background-color: #0f3c5d;
+  color: #fff;
+}

@@ -1,0 +1,35 @@
+.emptyListContainer {
+  margin: 100px auto;
+  width: 600px;
+  background: #f1f1f1;
+  box-shadow: 0 4px 25px 10px #272424;
+  border-radius: 5px;
+}
+
+.emptyInfoContainer {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70%;
+  color: #555;
+}
+
+.emptyTaskHeading {
+  font-size: 25px;
+  padding: 20px;
+}
+
+.emptyTaskInfo {
+  font-size: 30px;
+  padding: 20px;
+}
+
+button.ui.icon.button.addTaskButton {
+  color: #fff;
+  background-color: #0f3c5d;
+  border-radius: 50%;
+  margin-top: 10px;
+  padding: 18px;
+}

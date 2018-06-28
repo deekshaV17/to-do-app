@@ -1,9 +1,9 @@
 import React from 'react';
 import { Modal, Header, Button, Icon} from 'semantic-ui-react';
 
-const CustomModal = ({isOpen, toggleModal, taskId, callbackHandler}) => (
+const RemoveTaskModal = ({isOpen, toggleModal, taskId, callbackHandler}) => (
   <Modal open={isOpen} basic size='mini' centered={false}>
-    <Header icon='archive' content='Archive Old Messages' />
+    <Header icon='archive' content='Delete Task' />
     <Modal.Content>
       <p>
         Are you sure you want to delete this task?
@@ -20,4 +20,4 @@ const CustomModal = ({isOpen, toggleModal, taskId, callbackHandler}) => (
   </Modal>
 );
 
-export default CustomModal;
+export default RemoveTaskModal;

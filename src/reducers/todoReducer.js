@@ -1,4 +1,4 @@
-import { getTaskIndex } from "../utils/scripts";
+import { getTaskIndex } from '../utils/scripts';
 
 const initialState = {
   tasks: [],

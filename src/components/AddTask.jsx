@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Input, TextArea, Button } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -7,7 +7,8 @@ import Heading from './Heading';
 import '../styles/AddTask.scss';
 
 import TodoActions from '../actions/TodoActions';
-import ReminderModal from "./ReminderModal";
+import TaskFields from './TaskFields';
+
 import { withAlert } from "react-alert";
 
 const propTypes = {
@@ -24,11 +25,11 @@ const defaultProps = {
 
 @connect(store => ({ todo: store.TodoReducer.tasks }))
 class AddTask extends Component {
+
   state = {
     title: '',
     description: '',
     id: null,
-    modalIsOpen: false,
     reminderTime: {},
   };
 
@@ -50,32 +51,28 @@ class AddTask extends Component {
     this.setState({ description });
   };
 
-  toggleModal = () => {
-    this.setState(prevState => ({modalIsOpen: !prevState.modalIsOpen}))
-  };
+
 
   loop = (reminderTime) => {
-    var now = new Date();
+    let now = new Date();
 
     if (now.getFullYear() === reminderTime.getFullYear() && now.getMonth() === reminderTime.getMonth() && now.getDate() === reminderTime.getDate() && now.getHours() === reminderTime.getHours() && now.getMinutes() === reminderTime.getMinutes()) {
-      this.props.alert.show('abc');
+      this.props.alert.show(this.state.title);
     }
-    now = new Date();
-    var delay = 60000 - (now % 60000);
 
+    now = new Date();
+    const delay = 60000 - (now % 60000);
     const timeoutId = setTimeout(() => this.loop(reminderTime), delay);
+
     if(now > reminderTime) {
       clearTimeout(timeoutId);
     }
-    };
+  };
 
-  setReminder = (value) => {
+  setReminderTime = (value) => {
     const reminderTime = new Date(value.date);
-    console.log('cb time', value);
     const newReminderTime = new Date(reminderTime.getFullYear(), reminderTime.getMonth(), reminderTime.getDate(), value.time.hour, value.time.min);
-  this.setState({
-    reminderTime: newReminderTime
-  });
+    this.setState({ reminderTime: newReminderTime });
   };
 
   saveTask = () => {
@@ -85,31 +82,28 @@ class AddTask extends Component {
 
   render() {
     return (
-      <div>
+      <div className='addTaskContainer'>
         <Heading />
-        <div className='taskInputContainer'>
-          <Input
-            value={this.state.title}
-            placeholder='Add a title'
-            onChange={e => this.handleTitleChange(e.target.value)}
-          />
-          <TextArea
-            value={this.state.description}
-            placeholder='Add a description...'
-            onChange={e => this.handleDescriptionChange(e.target.value)}
-          />
-        </div>
-        <Button onClick={() => this.toggleModal()}>Add reminder</Button>
-        <ReminderModal isOpen={this.state.modalIsOpen} closeModal={this.toggleModal} setReminder={this.setReminder}/>
         <div>
-          <Link to='/'><Button>Cancel</Button></Link>
-          <Link to='/'>
-            <Button
-              onClick={() => this.saveTask()}
-            >
-              Save
-            </Button>
-          </Link>
+          <TaskFields
+            title={this.state.title}
+            description={this.state.description}
+            reminderTime={this.state.reminderTime}
+            setReminderTime={this.setReminderTime}
+            handleTitleChange={this.handleTitleChange}
+            handleDescriptionChange={this.handleDescriptionChange}
+          />
+          <div className='addTaskButtons'>
+            <Link to='/'><Button>Cancel</Button></Link>
+            <Link to='/'>
+              <Button
+                className='saveTaskButton'
+                onClick={() => this.saveTask()}
+              >
+                Save
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     );

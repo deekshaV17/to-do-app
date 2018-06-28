@@ -5,5 +5,5 @@ const getTaskIndex = (taskList, taskId) => taskList.findIndex(task => task.id ==
 
 export {
   getRandomId,
-  getTaskIndex
-}
+  getTaskIndex,
+};

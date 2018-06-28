@@ -57,7 +57,7 @@ class ReminderModal extends Component {
           ...prevState.time,
           hour: 0,
         }
-      }), () => () => this.props.setReminder(this.state))
+      }), () => () => this.props.setReminderTime(this.state))
     }
     else if(this.state.format === 'PM') {
       this.setState(prevState => ({
@@ -65,10 +65,10 @@ class ReminderModal extends Component {
           ...prevState.time,
           hour: prevState.time.hour + 12,
         }
-      }), () => this.props.setReminder(this.state))
+      }), () => this.props.setReminderTime(this.state))
     }
-    else this.props.setReminder(this.state);
-    this.props.closeModal();
+    else this.props.setReminderTime(this.state);
+    this.props.toggleModal();
   };
 
   render() {
@@ -93,7 +93,7 @@ class ReminderModal extends Component {
           />
         </Modal.Content>
         <Modal.Actions>
-          <Button negative onClick={() => this.props.closeModal()}>Cancel</Button>
+          <Button negative onClick={() => this.props.toggleModal()}>Cancel</Button>
           <Button positive icon='checkmark' labelPosition='right' content='Add' onClick={() => this.saveReminder()}/>
         </Modal.Actions>
       </Modal>

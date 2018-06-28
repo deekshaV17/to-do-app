@@ -1,4 +1,18 @@
-.taskInputContainer {
+.addTaskContainer {
+  margin: 100px auto;
+  width: 600px;
+  background: #fff;
+  box-shadow: 0 4px 25px 10px #272424;
+  border-radius: 5px;
+}
+
+.addTaskButtons {
+  padding: 20px;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ui.button.saveTaskButton {
+  background-color: #0f3c5d;
+  color: #fff;
 }
