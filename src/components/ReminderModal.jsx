@@ -1,19 +1,9 @@
 import React, { Component } from 'react';
 import { Modal, Button, Icon, Input, Menu, Dropdown } from 'semantic-ui-react';
 
-let hourOptions = [];
-let minuteOptions = [];
-for( let i = 1; i<=12; i++) {
-  hourOptions.push({key: i, text: JSON.stringify(i), value: i});
-}
-for( let i = 0; i<=59; i++) {
-  minuteOptions.push({key: i, text: JSON.stringify(i), value: i});
-}
+import { getHourOptions, getMinuteOptions, getTimeOptions } from "../utils/scripts";
+import '../styles/ReminderModal.scss';
 
-const timeOptions = [
-  {key: 'AM', text: 'AM', value: 'AM'},
-  {key: 'PM', text: 'PM', value: 'PM'}
-];
 
 class ReminderModal extends Component {
   state = {
@@ -24,7 +14,7 @@ class ReminderModal extends Component {
     },
     format: 'AM',
   };
-  handleChange = (date) => {
+  handleDateChange = (date) => {
     this.setState({ date: date });
   };
 
@@ -73,24 +63,31 @@ class ReminderModal extends Component {
 
   render() {
     return (
-      <Modal size={'tiny'} open={this.props.isOpen} centered={false}>
+      <Modal size={'tiny'} open={this.props.isOpen} centered={false} className='reminderModalContainer'>
         <Modal.Header>Add a reminder</Modal.Header>
-        <Modal.Content>
-          <div>date</div>
-          <Input type={'date'} value={this.state.date} onChange={(e) =>  this.handleChange(e.target.value)}/>
-          <Menu compact>
-            <Dropdown placeholder={'Hours'} floating inline scrolling options={hourOptions} closeOnChange
+        <Modal.Content className='reminderModalContent'>
+          <div>
+            <div>Date</div>
+            <Input
+              type={'date'}
+              value={this.state.date}
+              className='reminderDateInput'
+              onChange={(e) =>  this.handleDateChange(e.target.value)}/>
+          </div>
+          <div>
+            <div>Time</div>
+              <div>
+              <Dropdown className='reminderTimeInput' placeholder={'Hours'} floating inline scrolling options={getHourOptions()} closeOnChange
                       onChange={(e, {value}) => this.handleHourChange(e, {value})}
-            />
-          </Menu>
-          <Menu compact>
-            <Dropdown placeholder={'Min'} floating inline scrolling options={minuteOptions} closeOnChange
+              />
+              <Dropdown className='reminderTimeInput' placeholder={'Min'} floating inline scrolling options={getMinuteOptions()} closeOnChange
                       onChange={(e, {value}) => this.handleMinuteChange(e, {value})}
-            />
-          </Menu>
-          <Dropdown floating inline scrolling options={timeOptions} closeOnChange defaultValue={'AM'}
+              />
+              <Dropdown floating inline scrolling options={getTimeOptions()} closeOnChange defaultValue={'AM'}
                     onChange={(e, {value}) => this.handleFormatChange(e, {value})}
-          />
+              />
+            </div>
+          </div>
         </Modal.Content>
         <Modal.Actions>
           <Button negative onClick={() => this.props.toggleModal()}>Cancel</Button>

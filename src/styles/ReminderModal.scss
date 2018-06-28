@@ -1,0 +1,34 @@
+.ui.tiny.modal.transition.visible.active.reminderModalContainer {
+  margin-top: -150px;
+}
+
+.ui.modal>.content.reminderModalContent {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.ui.input.reminderDateInput {
+
+  input {
+	padding: 10px 0;
+	border-width: 0 0 3px 0;
+	border-radius: 2px;
+	width: 160px;
+
+	&:hover{
+	  border-color: #083c5d;
+	}
+
+	&:focus{
+	  border-color: #083c5d;
+	}
+  }
+}
+
+.ui.inline.dropdown.reminderTimeInput {
+
+  .text {
+	padding: 10px;
+  }
+}
