@@ -1,29 +1,26 @@
 import React, { Component } from "react";
-import { Button } from "semantic-ui-react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
 import PropTypes from "prop-types";
+
+import { connect} from 'react-redux';
+import { Link } from "react-router-dom";
+import { withAlert } from "react-alert";
+import { Button } from "semantic-ui-react";
 import { withRouter } from "react-router-dom";
+
 import Heading from "./Heading";
+import TaskFields from "./TaskFields";
+import TodoActions from "../actions/TodoActions";
+
+import { getRandomId, getReminderTime, isReminderDue } from "../utils/scripts";
+import { validateTask } from "../validations/Validations";
+
 import "../styles/AddTask.scss";
 
-import { validateTask } from "../validations/Validations";
-import { getRandomId } from "../utils/scripts";
-
-import TodoActions from "../actions/TodoActions";
-import TaskFields from "./TaskFields";
-
-import { withAlert } from "react-alert";
-
 const propTypes = {
-  currentTask: PropTypes.object,
-  todo: PropTypes.array,
   dispatch: PropTypes.func,
 };
 
 const defaultProps = {
-  currentTask: {},
-  todo: [],
   dispatch: () => {},
 };
 
@@ -54,14 +51,11 @@ class AddTask extends Component {
     this.setState({ description });
   };
 
-  loop = (reminderTime) => {
-    let now = new Date();
-
-    if (now.getFullYear() === reminderTime.getFullYear() && now.getMonth() === reminderTime.getMonth() && now.getDate() === reminderTime.getDate() && now.getHours() === reminderTime.getHours() && now.getMinutes() === reminderTime.getMinutes()) {
+  setReminderCountdown = (reminderTime) => {
+    if (isReminderDue(reminderTime)) {
       this.props.alert.show(this.state.title);
     }
-
-    now = new Date();
+    const now = new Date();
     const delay = 60000 - (now % 60000);
     const timeoutId = setTimeout(() => this.loop(reminderTime), delay);
 
@@ -71,9 +65,8 @@ class AddTask extends Component {
   };
 
   setReminderTime = (value) => {
-    const reminderTime = new Date(value.date);
-    const newReminderTime = new Date(reminderTime.getFullYear(), reminderTime.getMonth(), reminderTime.getDate(), value.time.hour, value.time.min);
-    this.setState({ reminderTime: newReminderTime });
+    const reminderTime = getReminderTime(value);
+    this.setState({ reminderTime: reminderTime });
   };
 
   removeReminder = () => {
@@ -81,14 +74,10 @@ class AddTask extends Component {
   };
 
   saveTask = () => {
-    if(this.state.update) {
-      this.props.dispatch(TodoActions.updateTask(this.state));
-    }
-    else {
-      this.props.dispatch(TodoActions.createTask(this.state));
-    }
+    this.props.dispatch(TodoActions.saveTask(this.state));
+
     if(this.state.reminderTime)
-      this.loop(this.state.reminderTime);
+      this.setReminderCountdown(this.state.reminderTime);
     this.props.history.push("/");
   };
 
@@ -98,9 +87,7 @@ class AddTask extends Component {
         <Heading location={this.props.location}/>
         <div className="taskFieldsContainer">
           <TaskFields
-            title={this.state.title}
-            description={this.state.description}
-            reminderTime={this.state.reminderTime}
+            task={this.state}
             removeReminder={this.removeReminder}
             setReminderTime={this.setReminderTime}
             handleTitleChange={this.handleTitleChange}

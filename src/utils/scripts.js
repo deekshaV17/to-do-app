@@ -96,6 +96,18 @@ const getTimeFormat = (time) => {
   return `${hours} : ${minutes} ${format}`;
 };
 
+const isReminderDue = reminderTime => {
+  const now = new Date();
+
+  return now.getFullYear() === reminderTime.getFullYear() && now.getMonth() === reminderTime.getMonth() && now.getDate() === reminderTime.getDate() && now.getHours() === reminderTime.getHours() && now.getMinutes() === reminderTime.getMinutes();
+};
+
+const getReminderTime = value => {
+  const reminderTime = new Date(value.date);
+
+  return new Date(reminderTime.getFullYear(), reminderTime.getMonth(), reminderTime.getDate(), value.time.hour, value.time.min);
+};
+
 export {
   getRandomId,
   getTaskIndex,
@@ -104,4 +116,6 @@ export {
   getTimeOptions,
   getDateFormat,
   getTimeFormat,
+  getReminderTime,
+  isReminderDue,
 };

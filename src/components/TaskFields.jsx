@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Input, Button, TextArea } from "semantic-ui-react";
-import { getDateFormat, getTimeFormat } from "../utils/scripts";
 
 import ReminderModal from "./ReminderModal";
+import { getDateFormat, getTimeFormat } from "../utils/scripts";
 
 import "../styles/TaskFields.scss";
 
@@ -15,29 +15,29 @@ class TaskFields extends Component {
   toggleModal = () => this.setState(prevState => ({ modalIsOpen: !prevState.modalIsOpen }));
 
   render() {
-    const reminderTime = this.props.reminderTime;
+    const task = this.props.task;
     return (
       <div className="taskInputContainer">
         <div className="inputTaskFields">
           <Input
             className="inputField"
-            value={this.props.title}
+            value={task.title}
             placeholder="Add a title"
             onChange={e => this.props.handleTitleChange(e.target.value)}
           />
           <TextArea
             className="textareaField"
-            value={this.props.description}
+            value={task.description}
             placeholder="Add a description..."
             onChange={e => this.props.handleDescriptionChange(e.target.value)}
           />
         </div>
-        {reminderTime  &&
+        { task.reminderTime  &&
           <div className="editReminderContainer">
             <div className="reminderInfo">
             <div> Reminder due: </div>
-            <div>{getDateFormat(reminderTime)}</div>
-            <div>Time: {getTimeFormat(reminderTime)}</div>
+            <div>{getDateFormat(task.reminderTime)}</div>
+            <div>Time: {getTimeFormat(task.reminderTime)}</div>
             </div>
             <Button
               onClick={() => this.toggleModal()}
@@ -50,7 +50,7 @@ class TaskFields extends Component {
           </div>
         }
 
-        {!reminderTime &&
+        { !task.reminderTime &&
           <Button onClick={() => this.toggleModal()} className="addReminderButton">Add reminder</Button>
         }
         <ReminderModal
