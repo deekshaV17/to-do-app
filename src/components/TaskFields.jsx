@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Input, Button, TextArea } from 'semantic-ui-react';
+import { getDateFormat, getTimeFormat } from "../utils/scripts";
 
 import ReminderModal from './ReminderModal';
 
@@ -14,6 +15,7 @@ class TaskFields extends Component {
   toggleModal = () => this.setState(prevState => ({ modalIsOpen: !prevState.modalIsOpen }));
 
   render() {
+    const reminderTime = this.props.reminderTime;
     return (
       <div className='taskInputContainer'>
         <div className='inputTaskFields'>
@@ -30,14 +32,25 @@ class TaskFields extends Component {
             onChange={e => this.props.handleDescriptionChange(e.target.value)}
           />
         </div>
-        {JSON.stringify(this.props.reminderTime) !== '{}' &&
-          <div>
-            <div> Reminder added at : {JSON.stringify(this.props.reminderTime)}</div>
-            <Button onClick={() => this.toggleModal()}>Edit reminder</Button>
+        {JSON.stringify(reminderTime) !== '{}' &&
+          <div className='editReminderContainer'>
+            <div className='reminderInfo'>
+            <div> Reminder added at : </div>
+            <div>{getDateFormat(reminderTime)}</div>
+            <div>Time: {getTimeFormat(reminderTime)}</div>
+            </div>
+            <Button
+              onClick={() => this.toggleModal()}
+              className='addReminderButton'>Edit Reminder
+            </Button>
+            <Button
+              onClick={() => this.props.removeReminder()}
+              className='addReminderButton'>Remove Reminder
+            </Button>
           </div>
         }
 
-        {JSON.stringify(this.props.reminderTime) === '{}' &&
+        {JSON.stringify(reminderTime) === '{}' &&
           <Button onClick={() => this.toggleModal()} className='addReminderButton'>Add reminder</Button>
         }
         <ReminderModal

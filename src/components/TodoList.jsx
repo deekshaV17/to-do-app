@@ -40,24 +40,24 @@ class TodoList extends Component {
   getTaskList = () => this.props.todoList.map(task => {
     return (
       <div className='taskContainer'>
-        <div className='taskDescription'>
+        <div className='taskDescriptionContainer'>
           <Checkbox
             defaultChecked={task.isComplete}
             onChange={() => this.props.dispatch(TodoActions.toggleCompletion(task.id))}
           />
-          <div>
-            <h3>{task.title}</h3>
-            <div className={task.isComplete ? 'markComplete': ''}>{task.description}</div>
+          <div className='taskDescription'>
+            <h3 className={task.isComplete ? 'markComplete': ''}>{task.title}</h3>
+            <div>{task.description}</div>
           </div>
         </div>
-        <div>
+        <div className='iconsContainer'>
           <Link
             to="/add-task"
             onClick={() => this.props.editTask(task)}
           >
-            <Icon name={'pencil alternate'} />
+            <Icon name={'pencil alternate'} size={'big'} />
           </Link>
-          <Icon name={'trash'} onClick={() => this.toggleModal()}/>
+          <Icon name={'trash'} size={'big'} onClick={() => this.toggleModal()}/>
           <RemoveTaskModal
             isOpen={this.state.openModal}
             toggleModal={this.toggleModal}
@@ -74,9 +74,9 @@ class TodoList extends Component {
         <EmptyList />
       );
     return (
-      <div>
-        <Heading />
-        <div>
+      <div className='todoListContainer'>
+        <Heading location={this.props.location}/>
+        <div className='todoListItems'>
           {this.getTaskList()}
         </div>
       </div>

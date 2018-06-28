@@ -13,9 +13,9 @@ class Heading extends Component {
         <h1>
           My Todo List
         </h1>
-        {this.props.todoList.length > 0 &&
-        <Link to={'/add-task'}>
-          <Button icon>
+        {this.props.todoList.length > 0 && this.props.location.pathname === '/' &&
+        <Link to={'/add-task'} className='headingAddItem'>
+          <Button icon className='headingAddItemButton'>
             <Icon name='plus'/>
           </Button>
         </Link>

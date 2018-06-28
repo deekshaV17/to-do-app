@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Modal, Button, Icon, Input, Menu, Dropdown } from 'semantic-ui-react';
 
 import { getHourOptions, getMinuteOptions, getTimeOptions } from "../utils/scripts";
+import { validateTime } from "../validations/Validations";
 import '../styles/ReminderModal.scss';
 
 
@@ -15,6 +16,7 @@ class ReminderModal extends Component {
     format: 'AM',
   };
   handleDateChange = (date) => {
+    console.log('date', date);
     this.setState({ date: date });
   };
 
@@ -91,7 +93,14 @@ class ReminderModal extends Component {
         </Modal.Content>
         <Modal.Actions>
           <Button negative onClick={() => this.props.toggleModal()}>Cancel</Button>
-          <Button positive icon='checkmark' labelPosition='right' content='Add' onClick={() => this.saveReminder()}/>
+          <Button
+            positive
+            icon='checkmark'
+            labelPosition='right'
+            content='Add'
+            disabled={!validateTime(this.state.time)}
+            onClick={() => this.saveReminder()}
+          />
         </Modal.Actions>
       </Modal>
     )

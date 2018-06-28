@@ -34,10 +34,73 @@ const getTimeOptions = () =>  {return [
   {key: 'AM', text: 'AM', value: 'AM'},
   {key: 'PM', text: 'PM', value: 'PM'}
 ]};
+
+const getDateFormat = (date) => {
+  const day = JSON.stringify(date.getDate());
+  const month = getMonthMapping(date.getMonth());
+  const year = JSON.stringify(date.getFullYear());
+  return `${day} ${month}, ${year}`;
+};
+
+const getTimeFormat = (time) => {
+  let hours = time.getHours();
+  let minutes = time.getMinutes();
+  let format = 'AM';
+  if(time.getHours() === 0) {
+    hours = 12;
+  }
+ if(time.getHours() >=12 && time.getHours < 13) {
+    format = 'PM';
+  }
+  if(time.getHours() >= 13)
+  {
+    hours = time.getHours() - 12;
+    format = 'PM';
+  }
+  if(hours < 10) {
+    hours = `0${JSON.stringify(hours)}`;
+  }
+  if(minutes < 10) {
+    minutes = `0${JSON.stringify(minutes)}`;
+  }
+  return `${hours} : ${minutes} ${format}`;
+};
+
+const getMonthMapping = (month) => {
+  switch(month) {
+    case 0:
+      return 'Jan';
+    case 1:
+      return 'Feb';
+    case 2:
+      return 'Mar';
+    case 3:
+      return 'Apr';
+    case 4:
+      return 'May';
+    case 5:
+      return 'Jun';
+    case 6:
+      return 'Jul';
+    case 7:
+      return 'Aug';
+    case 8:
+      return 'Sep';
+    case 9:
+      return 'Oct';
+    case 10:
+      return 'Nov';
+    case 11:
+      return 'Dec';
+  }
+};
+
 export {
   getRandomId,
   getTaskIndex,
   getHourOptions,
   getMinuteOptions,
   getTimeOptions,
+  getDateFormat,
+  getTimeFormat,
 };

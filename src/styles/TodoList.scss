@@ -1,15 +1,35 @@
+.todoListContainer {
+  margin: 100px auto 200px;
+  width: 600px;
+  background: #fff;
+  box-shadow: 0 4px 25px 10px #272424;
+  border-radius: 5px;
+}
 
+.todoListItems {
+  height: 85%;
+  overflow: auto;
+}
 .taskContainer {
+  padding: 20px 20px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.taskDescription {
+.taskDescriptionContainer {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+}
+
+.taskDescription {
+  padding: 0 20px;
 }
 
 .markComplete {
   text-decoration: line-through;
+}
+
+.iconsContainer {
+  display: flex;
 }

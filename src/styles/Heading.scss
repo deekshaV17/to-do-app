@@ -1,8 +1,20 @@
 .headingContainer {
+  height: 15%;
   display: flex;
   justify-content: center;
   padding: 20px;
   background-color: #083c5d;
   color: #f3eeee;
+  position: relative;
+}
 
+.headingAddItem {
+  position: absolute;
+  right: 0;
+}
+
+.ui.icon.button.headingAddItemButton {
+  padding: 15px;
+  margin-right: 20px;
+  border-radius: 50%;
 }

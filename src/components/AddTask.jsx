@@ -3,8 +3,11 @@ import { Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { withRouter } from "react-router-dom";
 import Heading from './Heading';
 import '../styles/AddTask.scss';
+
+import { validateTask } from "../validations/Validations";
 
 import TodoActions from '../actions/TodoActions';
 import TaskFields from './TaskFields';
@@ -75,34 +78,41 @@ class AddTask extends Component {
     this.setState({ reminderTime: newReminderTime });
   };
 
+  removeReminder = () => {
+    this.setState({ reminderTime: {} });
+  };
+
   saveTask = () => {
     this.props.dispatch(TodoActions.createTask(this.state));
-    this.loop(this.state.reminderTime);
+    if(JSON.stringify(this.state.reminderTime) !== '{}')
+      this.loop(this.state.reminderTime);
+    this.props.history.push("/");
   };
 
   render() {
+    console.log('propss', this.props);
     return (
       <div className='addTaskContainer'>
-        <Heading />
+        <Heading location={this.props.location}/>
         <div>
           <TaskFields
             title={this.state.title}
             description={this.state.description}
             reminderTime={this.state.reminderTime}
+            removeReminder={this.removeReminder}
             setReminderTime={this.setReminderTime}
             handleTitleChange={this.handleTitleChange}
             handleDescriptionChange={this.handleDescriptionChange}
           />
           <div className='addTaskButtons'>
             <Link to='/'><Button>Cancel</Button></Link>
-            <Link to='/'>
-              <Button
-                className='saveTaskButton'
-                onClick={() => this.saveTask()}
-              >
-                Save
-              </Button>
-            </Link>
+            <Button
+              disabled={!validateTask(this.state)}
+              className='saveTaskButton'
+              onClick={() => this.saveTask()}
+            >
+              Save
+            </Button>
           </div>
         </div>
       </div>
@@ -113,4 +123,4 @@ class AddTask extends Component {
 AddTask.propTypes = propTypes;
 AddTask.defaultProps = defaultProps;
 
-export default withAlert(AddTask);
+export default withRouter(withAlert(AddTask));
