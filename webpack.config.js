@@ -1,12 +1,32 @@
 const path = require('path');
-// var webpack = require('webpack');
+
+const webpack = require('webpack');
+
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+const BUILD_DIR = path.join(__dirname, 'dist');
+
+const publicPath = '/';
 
 module.exports = {
-  entry: './index.jsx',
+
+  mode: 'development',
+
+  entry: {
+    app: './index.jsx',
+    react: ['react', 'react-dom', 'redux', 'react-redux'],
+    vendor: [
+      'semantic-ui-react',
+      'react-loadable'],
+  },
   output: {
-    publicPath : '/dist/',
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'app.bundle.js'
+    publicPath,
+    path: BUILD_DIR,
+    filename: '[name]-[hash].min.js'
   },
   module: {
     rules: [
@@ -16,9 +36,29 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.(css|scss)$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
-      }
+        loader: 'eslint-loader',
+        exclude: /node_modules/,
+        test: /\.jsx?$/,
+        options: {
+          emitWarning: true,
+        },
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: false,
+              sourceMap: true,
+              importLoader: 2,
+            },
+          },
+          'sass-loader',
+        ],
+      },
     ]
   },
   stats: {
@@ -27,5 +67,27 @@ module.exports = {
   devtool: 'source-map',
   resolve: {
     extensions: ['.jsx', '.js', '.json'],
-  }
+  },
+  plugins: [
+    new CleanWebpackPlugin([BUILD_DIR], {
+      verbose: true,
+      exclude: ['json'],
+    }),
+    new HtmlWebpackPlugin({
+      title: 'TodoApp',
+      filename: 'index.html',
+      inject: 'body',
+      hash: true,
+      xhtml: true,
+      template: 'src/templates/index.ejs',
+      chunks: ['app', 'vendor', 'react'],
+    }),
+    new webpack.optimize.SplitChunksPlugin({
+      name: ['react', 'vendor'],
+      filename: '[name]-[chunkhash].bundle.js',
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name]-[contenthash].css',
+    }),
+  ]
 };
