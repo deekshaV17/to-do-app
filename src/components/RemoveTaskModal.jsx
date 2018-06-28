@@ -1,8 +1,10 @@
 import React from 'react';
 import { Modal, Header, Button, Icon} from 'semantic-ui-react';
 
+import '../styles/RemoveTaskModal.scss';
+
 const RemoveTaskModal = ({isOpen, toggleModal, taskId, callbackHandler}) => (
-  <Modal open={isOpen} basic size='mini' centered={false}>
+  <Modal open={isOpen} basic size='mini' centered={false} className='removeTaskModal'>
     <Header icon='archive' content='Delete Task' />
     <Modal.Content>
       <p>
