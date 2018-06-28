@@ -1,20 +1,20 @@
-import React from 'react'
-import Loadable from 'react-loadable';
+import React from "react"
+import Loadable from "react-loadable";
 
-import { BrowserRouter } from 'react-router-dom';
-import { Route, Switch } from 'react-router-dom';
+import { BrowserRouter } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 function MyLoadingComponent() {
   return <div>Loading...</div>;
 }
 
 const todoList = Loadable({
-  loader: () => import('../components/TodoList'),
+  loader: () => import("../components/TodoList"),
   loading: MyLoadingComponent,
 });
 
 const addTask = Loadable({
-  loader: () => import('../components/AddTask'),
+  loader: () => import("../components/AddTask"),
   loading: MyLoadingComponent,
 });
 

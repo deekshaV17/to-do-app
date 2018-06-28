@@ -1,9 +1,6 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { createLogger } from 'redux-logger';
-import thunk from 'redux-thunk';
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
 
-import TodoReducer from '../reducers/todoReducer';
-
-const loggerMiddleware = createLogger({ predicate: () => ({ logger: console, diff: true }) });
+import TodoReducer from "../reducers/todoReducer";
 
 export default createStore(combineReducers({ TodoReducer }), {}, applyMiddleware(thunk));

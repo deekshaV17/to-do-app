@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Checkbox, Icon } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { Checkbox, Icon } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
-import Heading from './Heading';
-import EmptyList from './EmptyList';
+import Heading from "./Heading";
+import EmptyList from "./EmptyList";
 
-import TodoActions from '../actions/TodoActions';
+import TodoActions from "../actions/TodoActions";
 
-import '../styles/TodoList.scss';
+import "../styles/TodoList.scss";
 import RemoveTaskModal from "./RemoveTaskModal";
 
 const propTypes = {
@@ -39,28 +39,28 @@ class TodoList extends Component {
 
   getTaskList = () => this.props.todoList.map(task => {
     return (
-      <div className='taskContainer' key={task.id}>
-        <div className='taskDescriptionContainer'>
+      <div className="taskContainer" key={task.id}>
+        <div className="taskDescriptionContainer">
           <Checkbox
             defaultChecked={task.isComplete}
             onChange={() => this.props.dispatch(TodoActions.toggleCompletion(task.id))}
           />
-          <div className='taskDescription'>
-            <h3 className={task.isComplete ? 'markComplete': ''}>{task.title}</h3>
+          <div className="taskDescription">
+            <h3 className={task.isComplete ? "markComplete": ""}>{task.title}</h3>
             <div>{task.description}</div>
           </div>
         </div>
-        <div className='iconsContainer'>
+        <div className="iconsContainer">
           {task.reminderTime &&
-          <Icon name={'bell outline'} size={'large'}/>
+          <Icon name={"bell outline"} size={"large"}/>
           }
           <Link
-            to={{ pathname: '/add-task', state: { task: task } }}
+            to={{ pathname: "/add-task", state: { task: task } }}
             onClick={() => this.props.editTask(task)}
           >
-            <Icon name={'pencil alternate'} size={'large'} />
+            <Icon name={"pencil alternate"} size={"large"} />
           </Link>
-          <Icon name={'trash'} size={'large'} onClick={() => this.toggleModal()}/>
+          <Icon name={"trash"} size={"large"} onClick={() => this.toggleModal()}/>
           <RemoveTaskModal
             isOpen={this.state.openModal}
             toggleModal={this.toggleModal}
@@ -77,9 +77,9 @@ class TodoList extends Component {
         <EmptyList />
       );
     return (
-      <div className='todoListContainer'>
+      <div className="todoListContainer">
         <Heading location={this.props.location}/>
-        <div className='todoListItems'>
+        <div className="todoListItems">
           {this.getTaskList()}
         </div>
       </div>

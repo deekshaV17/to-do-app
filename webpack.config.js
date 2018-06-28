@@ -36,14 +36,6 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        loader: 'eslint-loader',
-        exclude: /node_modules/,
-        test: /\.jsx?$/,
-        options: {
-          emitWarning: true,
-        },
-      },
-      {
         test: /\.scss$/,
         use: [
           'style-loader',

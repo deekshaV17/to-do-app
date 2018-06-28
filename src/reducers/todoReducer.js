@@ -1,4 +1,4 @@
-import { getTaskIndex } from '../utils/scripts';
+import { getTaskIndex } from "../utils/scripts";
 
 const initialState = {
   tasks: [],
@@ -6,22 +6,22 @@ const initialState = {
 
 
 const TodoReducer = (state = initialState, action) => {
-  switch(action.type) {
-    case 'ADD':
+  switch (action.type) {
+    case "ADD":
       return {
         ...state,
         tasks: [...state.tasks, action.payload],
       };
-    case 'UPDATE': {
+    case "UPDATE": {
       const taskIndex = getTaskIndex(state.tasks, action.payload.id);
       const newList = [...state.tasks];
-      newList[taskIndex] = {...action.payload};
+      newList[taskIndex] = { ...action.payload };
       return {
         ...state,
         tasks: newList,
       };
     }
-    case 'TOGGLE': {
+    case "TOGGLE": {
       const taskIndex = getTaskIndex(state.tasks, action.payload);
       const newList = [...state.tasks];
       newList[taskIndex].isComplete = !newList[taskIndex].isComplete;
@@ -30,9 +30,9 @@ const TodoReducer = (state = initialState, action) => {
         tasks: newList,
       };
     }
-    case 'REMOVE': {
+    case "REMOVE": {
       const taskIndex = getTaskIndex(state.tasks, action.payload);
-      let newList = [...state.tasks];
+      const newList = [...state.tasks];
       newList.splice(taskIndex, 1);
       return {
         ...state,

@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import { Button } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import { Button } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
-import Heading from './Heading';
-import '../styles/AddTask.scss';
+import Heading from "./Heading";
+import "../styles/AddTask.scss";
 
 import { validateTask } from "../validations/Validations";
 import { getRandomId } from "../utils/scripts";
 
-import TodoActions from '../actions/TodoActions';
-import TaskFields from './TaskFields';
+import TodoActions from "../actions/TodoActions";
+import TaskFields from "./TaskFields";
 
 import { withAlert } from "react-alert";
 
@@ -31,8 +31,8 @@ const defaultProps = {
 class AddTask extends Component {
 
   state = {
-    title: '',
-    description: '',
+    title: "",
+    description: "",
     id: getRandomId(),
     reminderTime: null,
     update: false,
@@ -94,9 +94,9 @@ class AddTask extends Component {
 
   render() {
     return (
-      <div className='addTaskContainer'>
+      <div className="addTaskContainer">
         <Heading location={this.props.location}/>
-        <div className='taskFieldsContainer'>
+        <div className="taskFieldsContainer">
           <TaskFields
             title={this.state.title}
             description={this.state.description}
@@ -106,11 +106,11 @@ class AddTask extends Component {
             handleTitleChange={this.handleTitleChange}
             handleDescriptionChange={this.handleDescriptionChange}
           />
-          <div className='addTaskButtons'>
-            <Link to='/'><Button>Cancel</Button></Link>
+          <div className="addTaskButtons">
+            <Link to="/"><Button>Cancel</Button></Link>
             <Button
               disabled={!validateTask(this.state)}
-              className='saveTaskButton'
+              className="saveTaskButton"
               onClick={() => this.saveTask()}
             >
               Save

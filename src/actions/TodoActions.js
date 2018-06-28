@@ -1,4 +1,4 @@
-import TodoActionsTypes from '../actions/TodoActionsTypes';
+import TodoActionsTypes from "../actions/TodoActionsTypes";
 
 const TodoActions = {
 

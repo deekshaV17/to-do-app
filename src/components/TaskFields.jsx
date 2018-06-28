@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { Input, Button, TextArea } from 'semantic-ui-react';
+import React, { Component } from "react";
+import { Input, Button, TextArea } from "semantic-ui-react";
 import { getDateFormat, getTimeFormat } from "../utils/scripts";
 
-import ReminderModal from './ReminderModal';
+import ReminderModal from "./ReminderModal";
 
-import '../styles/TaskFields.scss';
+import "../styles/TaskFields.scss";
 
 class TaskFields extends Component {
 
@@ -17,41 +17,41 @@ class TaskFields extends Component {
   render() {
     const reminderTime = this.props.reminderTime;
     return (
-      <div className='taskInputContainer'>
-        <div className='inputTaskFields'>
+      <div className="taskInputContainer">
+        <div className="inputTaskFields">
           <Input
-            className='inputField'
+            className="inputField"
             value={this.props.title}
-            placeholder='Add a title'
+            placeholder="Add a title"
             onChange={e => this.props.handleTitleChange(e.target.value)}
           />
           <TextArea
-            className='textareaField'
+            className="textareaField"
             value={this.props.description}
-            placeholder='Add a description...'
+            placeholder="Add a description..."
             onChange={e => this.props.handleDescriptionChange(e.target.value)}
           />
         </div>
         {reminderTime  &&
-          <div className='editReminderContainer'>
-            <div className='reminderInfo'>
+          <div className="editReminderContainer">
+            <div className="reminderInfo">
             <div> Reminder due: </div>
             <div>{getDateFormat(reminderTime)}</div>
             <div>Time: {getTimeFormat(reminderTime)}</div>
             </div>
             <Button
               onClick={() => this.toggleModal()}
-              className='addReminderButton'>Edit Reminder
+              className="addReminderButton">Edit Reminder
             </Button>
             <Button
               onClick={() => this.props.removeReminder()}
-              className='addReminderButton'>Remove Reminder
+              className="addReminderButton">Remove Reminder
             </Button>
           </div>
         }
 
         {!reminderTime &&
-          <Button onClick={() => this.toggleModal()} className='addReminderButton'>Add reminder</Button>
+          <Button onClick={() => this.toggleModal()} className="addReminderButton">Add reminder</Button>
         }
         <ReminderModal
           isOpen={this.state.modalIsOpen}
