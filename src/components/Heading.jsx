@@ -1,9 +1,21 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Button, Icon } from "semantic-ui-react";
 
 import "../styles/Heading.scss";
+
+const propTypes = {
+  todoList: PropTypes.array,
+  location: PropTypes.object,
+};
+
+const defaultProps = {
+  todoList: [],
+  location: {},
+};
 
 @connect(store => ({todoList: store.TodoReducer.tasks}))
 class Heading extends Component {
@@ -24,5 +36,8 @@ class Heading extends Component {
     );
   }
 }
+
+Heading.propTypes = propTypes;
+Heading.defaultProps = defaultProps;
 
 export default Heading;

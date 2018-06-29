@@ -1,7 +1,23 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import { Modal, Header, Button, Icon} from "semantic-ui-react";
 
 import "../styles/RemoveTaskModal.scss";
+
+const propTypes = {
+  isOpen: PropTypes.bool,
+  callbackHandler: PropTypes.func,
+  toggleModal: PropTypes.func,
+  taskId: PropTypes.number,
+};
+
+const defaultProps = {
+  isOpen: false,
+  toggleModal: () => {},
+  callbackHandler: () => {},
+  taskId: null,
+};
 
 const RemoveTaskModal = ({isOpen, toggleModal, taskId, callbackHandler}) => (
   <Modal open={isOpen} basic size="mini" centered={false} className="removeTaskModal">
@@ -21,5 +37,8 @@ const RemoveTaskModal = ({isOpen, toggleModal, taskId, callbackHandler}) => (
     </Modal.Actions>
   </Modal>
 );
+
+RemoveTaskModal.propTypes = propTypes;
+RemoveTaskModal.defaultProps = defaultProps;
 
 export default RemoveTaskModal;

@@ -1,10 +1,23 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+
 import { Modal, Button, Input, Dropdown } from "semantic-ui-react";
 
 import { getHourOptions, getMinuteOptions, getTimeOptions } from "../utils/scripts";
 import { validateTime } from "../validations/Validations";
 import "../styles/ReminderModal.scss";
 
+const propTypes = {
+  isOpen: PropTypes.bool,
+  setReminderTime: PropTypes.func,
+  toggleModal: PropTypes.func,
+};
+
+const defaultProps = {
+  isOpen: false,
+  setReminderTime: () => {},
+  toggleModal: () => {},
+};
 
 class ReminderModal extends Component {
   state = {
@@ -105,5 +118,8 @@ class ReminderModal extends Component {
     )
   }
 }
+
+ReminderModal.propTypes = propTypes;
+ReminderModal.defaultProps = defaultProps;
 
 export default ReminderModal;

@@ -1,10 +1,28 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+
 import { Input, Button, TextArea } from "semantic-ui-react";
 
 import ReminderModal from "./ReminderModal";
 import { getDateFormat, getTimeFormat } from "../utils/scripts";
 
 import "../styles/TaskFields.scss";
+
+const propTypes = {
+  task: PropTypes.object,
+  handleTitleChange: PropTypes.func,
+  handleDescriptionChange: PropTypes.func,
+  removeReminder:PropTypes.func,
+  setReminderTime: PropTypes.func,
+};
+
+const defaultProps = {
+  task: {},
+  handleTitleChange: ()=> {},
+  handleDescriptionChange: ()=> {},
+  removeReminder: ()=> {},
+  setReminderTime: ()=> {},
+};
 
 class TaskFields extends Component {
 
@@ -62,6 +80,9 @@ class TaskFields extends Component {
     );
   }
 }
+
+TaskFields.propTypes = propTypes;
+TaskFields.defaultProps = defaultProps;
 
 
 export default TaskFields;

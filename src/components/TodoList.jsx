@@ -15,10 +15,14 @@ import RemoveTaskModal from "./RemoveTaskModal";
 const propTypes = {
   todoList: PropTypes.array,
   editTask: PropTypes.func,
+  location: PropTypes.object,
+  dispatch: PropTypes.func,
 };
 
 const defaultProps = {
   todoList: [],
+  location: {},
+  dispatch: () => {},
   editTask: () => {},
 };
 

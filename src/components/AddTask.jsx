@@ -18,10 +18,12 @@ import "../styles/AddTask.scss";
 
 const propTypes = {
   dispatch: PropTypes.func,
+  location: PropTypes.object,
 };
 
 const defaultProps = {
   dispatch: () => {},
+  location: {},
 };
 
 @connect(store => ({ todo: store.TodoReducer.tasks }))
