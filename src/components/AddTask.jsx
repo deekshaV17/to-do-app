@@ -57,7 +57,7 @@ class AddTask extends Component {
     }
     const now = new Date();
     const delay = 60000 - (now % 60000);
-    const timeoutId = setTimeout(() => this.loop(reminderTime), delay);
+    const timeoutId = setTimeout(() => this.setReminderCountdown(reminderTime), delay);
 
     if(now > reminderTime) {
       clearTimeout(timeoutId);

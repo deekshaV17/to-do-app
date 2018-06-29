@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Modal, Button, Icon, Input, Menu, Dropdown } from "semantic-ui-react";
+import { Modal, Button, Input, Dropdown } from "semantic-ui-react";
 
 import { getHourOptions, getMinuteOptions, getTimeOptions } from "../utils/scripts";
 import { validateTime } from "../validations/Validations";

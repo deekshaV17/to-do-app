@@ -9,7 +9,7 @@
 }
 
 .todoListItems {
-  min-height: 500px;
+  height: 600px;
   background-color: #fff;
   display: flex;
   flex-direction: column;
@@ -17,6 +17,8 @@
   overflow: auto;
 }
 .taskContainer {
+  margin: 10px 0;
+  min-height: 50px;
   padding: 20px 0 0 0;
   display: flex;
   align-items: center;
