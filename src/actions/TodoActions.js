@@ -11,7 +11,6 @@ const TodoActions = {
   toggleCompletion: taskId => ({ type: TodoActionsTypes.TOGGLE, payload: taskId}),
 
   saveTask: payload => dispatch => {
-    console.log('inside sav');
 
     if (payload.update) {
       dispatch(TodoActions.updateTask(payload));
